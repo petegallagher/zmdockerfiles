@@ -18,6 +18,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt install --assume-yes zoneminder \
     && a2enconf zoneminder \
     && a2enmod rewrite cgi
 
+# Configure default path redirect
+COPY release/ubuntu18.04/zm-redirect.conf /etc/apache2/conf-available/zm-redirect.conf
+RUN a2enconf zm-redirect
+
 # Setup Volumes
 VOLUME /var/lib/zoneminder/events /var/lib/zoneminder/images /var/lib/mysql /var/log/zm
 
